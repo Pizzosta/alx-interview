@@ -2,21 +2,18 @@
 '''Function to check unlocked boxes'''
 
 
-def canUnlockAll(boxes, visited=None, current_box=0):
-    '''Unlock a box'''
-    if visited is None:
-        visited = set()
+def canUnlockAll(boxes):
+    '''unlock boxes'''
+    visited = set()
+    visited.add(0)
+    queue = [0]
 
-    if current_box in visited:
-        return False
+    while queue:
+        current_box = queue.pop(0)
 
-    visited.add(current_box)
+        for key in boxes[current_box]:
+            if key not in visited:
+                visited.add(key)
+                queue.append(key)
 
-    if len(visited) == len(boxes):
-        return True
-
-    for key in boxes[current_box]:
-        if key != current_box and canUnlockAll(boxes, visited, key):
-            return True
-
-    return False
+    return len(visited) == len(boxes)
