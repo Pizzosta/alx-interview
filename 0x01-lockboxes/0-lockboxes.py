@@ -16,7 +16,7 @@ def canUnlockAll(boxes, visited=None, current_box=0):
         return True
 
     for key in boxes[current_box]:
-        if canUnlockAll(boxes, visited, key):
+        if key != current_box and canUnlockAll(boxes, visited, key):
             return True
 
     return False
