@@ -19,9 +19,14 @@ try:
         line_parts = line.split(" ")
 
         # Check if the line has enough parts
-        if len(line_parts) > 4:
-            status_code = line_parts[-2]
-            file_size = int(line_parts[-1])
+        if len(line_parts) >= 8:
+            ip_address = line_parts[0]
+            status_code = line_parts[-3]
+            try:
+                file_size = int(line_parts[-2])
+            except ValueError:
+                # Skip the line if file size is not an integer
+                continue
 
             # Increment the status code count if it's in the dictionary
             if status_code in status_code_counts:
