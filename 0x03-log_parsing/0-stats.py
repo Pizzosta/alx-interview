@@ -19,17 +19,12 @@ try:
         line_parts = line.split(" ")
 
         # Check if the line has enough parts
-        if len(line_parts) >= 8:
-            ip_address = line_parts[0]
-            status_code = line_parts[-3]
-            try:
-                file_size = int(line_parts[-2])
-            except ValueError:
-                # Skip the line if file size is not an integer
-                continue
+        if len(line_parts) > 4:
+            status_code = line_parts[-2]
+            file_size = int(line_parts[-1])
 
             # Increment the status code count if it's in the dictionary
-            if status_code in status_code_counts:
+            if status_code in status_code_counts.keys():
                 status_code_counts[status_code] += 1
 
             # Update the total file size and line counter
@@ -39,7 +34,7 @@ try:
         # Print metrics every 10 lines
         if line_counter == 10:
             line_counter = 0
-            print('Total file size:', total_size)
+            print('File size: {}'.format(total_size))
             for code, count in sorted(status_code_counts.items()):
                 if count > 0:
                     print('{}: {}'.format(code, count))
@@ -50,7 +45,7 @@ except KeyboardInterrupt:
 
 finally:
     # Print final metrics before exiting
-    print('Total file size:', total_size)
+    print('File size: {}'.format(total_size))
     for code, count in sorted(status_code_counts.items()):
         if count > 0:
             print('{}: {}'.format(code, count))
