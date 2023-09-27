@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+"""Making change effective"""
+
+
 def makeChange(coins, total):
     """
     Calculate the fewest number of coins needed to meet a given total amount.
