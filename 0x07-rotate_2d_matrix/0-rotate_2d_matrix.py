@@ -3,6 +3,15 @@
 
 
 def rotate_2d_matrix(matrix):
+    """
+    Rotate a 2D matrix 90 degrees clockwise in-place.
+
+    Args:
+    - matrix (List[List[int]]): The 2D matrix to be rotated.
+
+    Returns:
+    - None: The matrix is rotated in-place, so there's no return value
+    """
     n = len(matrix)
 
     for i in range(n):
