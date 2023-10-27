@@ -17,19 +17,16 @@ def makeChange(coins, total):
     """
     if total <= 0:
         return 0
+    table = [sys.maxsize for i in range(total + 1)]
+    table[0] = 0
+    m = len(coins)
+    for i in range(1, total + 1):
+        for j in range(m):
+            if coins[j] <= i:
+                subres = table[i - coins[j]]
+                if subres != sys.maxsize and subres + 1 < table[i]:
+                    table[i] = subres + 1
 
-    fewest_number = [float('inf')] * (total + 1)
-
-    fewest_number[0] = 0
-
-    for coin in coins:
-        for current_total in range(coin, total + 1):
-            fewest_number[current_total] = min(
-                fewest_number[current_total],
-                fewest_number[current_total - coin] + 1
-            )
-
-    if fewest_number[total] == float('inf'):
+    if table[total] == sys.maxsize:
         return -1
-    else:
-        return fewest_number[total]
+    return table[total]
